@@ -1,10 +1,11 @@
-## here wedefinethe funstions that manipulate the needed variables and 
+## here we define the funstions that manipulate the needed variables and 
 ## functions within the environment from where we execute the returned functions
 
 makeCacheMatrix <- function(x = matrix()) {
+    
     inverse <- NULL # The initial inverse doesn't exist
     
-    set <- function(y) { # set the value of the matrix and it's inverse
+    set <- function(y) { # set the value of the matrix and NULL it's inverse
         x <<- y
         inverse <<- NULL
     }
@@ -20,7 +21,10 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## now to get the inverse. if previously computed return that previous value
+## els compute anew and update.
+## Note: we do no checking on incoming matrix, but assume it is square and
+## invertabe so that the output is valid
 
 cacheSolve <- function(x, ...) {
     ## Return a matrix that is the inverse of 'x'
@@ -33,5 +37,5 @@ cacheSolve <- function(x, ...) {
     data <- x$get() # else we need to compute it
     m <- solve(data, ...) # assume that data invertable
     x$setinverse(m) # update the enviroment
-    m            # return the inverse
+    m               # return the inverse
 }
